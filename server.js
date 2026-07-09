@@ -13,20 +13,29 @@ mongoose.connection.on('connected', () => {
 
 const Fruit = require('./models/fruit.js')
 
+app.use(express.urlencoded({ extended: false }))
 app.use(morgan('dev'))
 
+// HOME PAGE
 app.get('/', async (req, res) => {
     res.render('home.ejs')
 })
 
-// this route will change often
-app.get('/fruits', async (req, res) => {
-    // use a mongoose method to find all the bananas
-    let notReady = await Fruit.find({ isReadyToEat: false})
-    
-    // view the found fruit
-    res.send(notReady)
+// GET /fruits/new (displays form for creating fruit)
+app.get('/fruits/new', async (req, res) => {
+    res.render('new.ejs')
 })
+
+// POST /fruits (creates fruit in database)
+app.post('/fruits', async (req, res) => {
+    // fruitData object should match Fruit model
+    // const fruitData = {}
+    // fruitData.name = req.body.name
+    // fruitData.isReadyToEat
+
+    res.send(req.body.name)
+})
+
 
 app.listen(3000, () => {
     console.log('Listening on port 3000')
@@ -57,3 +66,15 @@ app.listen(3000, () => {
 // FIND ALL FRUITS WHERE isReadyToEat IS false
         // use a mongoose method to find all fruits where isReadyToEat is false
     // let notReady = await Fruit.find({ isReadyToEat: false})
+
+// FIND ONE FRUIT BY ITS ID AND UPDATE IT
+    // use a mongoose method to find and update the Fruit
+    // let updatedFruit = await Fruit.findByIdAndUpdate("6a4f6c5b26b63467c4db784b", {name: 'Plaintain'}, {new: true})
+
+// FIND BY ID AND DELETE THE FRUIT
+    // use a mongoose method to find and delete the Fruit
+    // let deletedFruit = await Fruit.findByIdAndDelete("6a4f6c5b26b63467c4db784b")
+
+// FIND A FRUIT BY IT'S ID
+        // use a mongoose method to find a single Fruit by it's ID
+    // let foundFruit = await Fruit.findById("6a4f6c5b26b63467c4db784b")
