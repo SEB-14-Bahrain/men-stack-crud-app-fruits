@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create a Fruit</title>
-</head>
-<body>
+<%- include('./partials/nav') %>
+
     <h1>Create a New Fruit</h1>
 
     <form action="/fruits" method="POST">
@@ -13,8 +7,10 @@
         <input type="text" name="name" />
 
         <br />
-       Ready to Eat?
-        <input type="checkbox" name="isReadyToEat"/>
+        <div class="checkbox-div">
+            Ready to Eat?
+            <input type="checkbox" name="isReadyToEat"/>
+        </div>
 
         <button type="submit">Add Fruit</button>
     </form>

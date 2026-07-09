@@ -2,6 +2,7 @@ const dotenv = require('dotenv').config() // making .env file available
 const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
+const path = require('path')
 
 const app = express()
 
@@ -15,6 +16,7 @@ const Fruit = require('./models/fruit.js')
 
 app.use(express.urlencoded({ extended: false }))
 app.use(morgan('dev'))
+app.use(express.static(path.join(__dirname, "public")))
 
 // HOME PAGE
 app.get('/', async (req, res) => {
@@ -39,7 +41,7 @@ app.post('/fruits', async (req, res) => {
 
     let createdFruit = await Fruit.create(fruitData)
 
-    res.send(createdFruit)
+    res.redirect('/')
 })
 
 
