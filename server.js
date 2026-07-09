@@ -28,12 +28,18 @@ app.get('/fruits/new', async (req, res) => {
 
 // POST /fruits (creates fruit in database)
 app.post('/fruits', async (req, res) => {
-    // fruitData object should match Fruit model
-    // const fruitData = {}
-    // fruitData.name = req.body.name
-    // fruitData.isReadyToEat
+    const fruitData = {}
+    fruitData.name = req.body.name
 
-    res.send(req.body.name)
+    if (req.body.isReadyToEat === 'on') {
+        fruitData.isReadyToEat = true
+    } else {
+        fruitData.isReadyToEat = false
+    }
+
+    let createdFruit = await Fruit.create(fruitData)
+
+    res.send(createdFruit)
 })
 
 
