@@ -2,7 +2,7 @@
 
     <h1>Edit <%= foundFruit.name %></h1>
 
-    <form action="" method="POST">
+    <form action="/fruits/<%= foundFruit._id %>?_method=PUT" method="POST">
         Name:
         <input type="text" name="name" value="<%= foundFruit.name %>" />
 

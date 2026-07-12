@@ -79,6 +79,22 @@ app.get('/fruits/:fruitId/edit', async (req, res) => {
     })
 })
 
+// PUT - actually updates the fruit in the database
+app.put('/fruits/:fruitId', async (req, res) => {
+    const fruitData = {}
+    fruitData.name = req.body.name
+
+    if (req.body.isReadyToEat === 'on') {
+        fruitData.isReadyToEat = true
+    } else {
+        fruitData.isReadyToEat = false
+    }
+
+    let updatedFruit = await Fruit.findByIdAndUpdate(req.params.fruitId, fruitData, {new: true})
+
+    res.redirect(`/fruits/${req.params.fruitId}`)
+})
+
 
 app.listen(3000, () => {
     console.log('Listening on port 3000')
