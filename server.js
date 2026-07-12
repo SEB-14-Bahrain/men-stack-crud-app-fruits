@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const path = require('path')
 const methodOverride = require('method-override')
 
+const fruitsCtrl = require('./controllers/fruits.controller.js')
+
 const app = express()
 
 // connect us to MongoDB using connection string in .env
@@ -31,30 +33,11 @@ app.get('/fruits/new', async (req, res) => {
 })
 
 // POST /fruits (creates fruit in database)
-app.post('/fruits', async (req, res) => {
-    const fruitData = {}
-    fruitData.name = req.body.name
-
-    if (req.body.isReadyToEat === 'on') {
-        fruitData.isReadyToEat = true
-    } else {
-        fruitData.isReadyToEat = false
-    }
-
-    let createdFruit = await Fruit.create(fruitData)
-
-    res.redirect('/fruits')
-})
+app.post('/fruits', fruitsCtrl.create)
 
 
 //GET all fruits /fruits - index route
-app.get('/fruits', async (req, res) => {
-    let allFruits = await Fruit.find()
-    console.log(allFruits)
-    res.render('index.ejs', {
-        allFruits: allFruits
-    })
-})
+app.get('/fruits', fruitsCtrl.index)
 
 // GET show route /fruits/:fruitId
 app.get('/fruits/:fruitId', async (req, res) => {
@@ -93,6 +76,10 @@ app.put('/fruits/:fruitId', async (req, res) => {
     let updatedFruit = await Fruit.findByIdAndUpdate(req.params.fruitId, fruitData, {new: true})
 
     res.redirect(`/fruits/${req.params.fruitId}`)
+})
+
+app.get("*splat", function (req, res) {
+  res.render('error.ejs', { msg: "Page not found!" });
 })
 
 

@@ -5,7 +5,9 @@
     <form action="/fruits" method="POST">
         Name:
         <input type="text" name="name" />
-
+        <% if (typeof(msg) !== 'undefined') { %>
+        <small><%= msg %></small>
+        <% } %>
         <br />
         <div class="checkbox-div">
             Ready to Eat?
