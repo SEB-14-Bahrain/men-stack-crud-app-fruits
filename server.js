@@ -3,6 +3,7 @@ const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const path = require('path')
+const methodOverride = require('method-override')
 
 const app = express()
 
@@ -15,6 +16,7 @@ mongoose.connection.on('connected', () => {
 const Fruit = require('./models/fruit.js')
 
 app.use(express.urlencoded({ extended: false }))
+app.use(methodOverride('_method'))
 app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, "public")))
 
@@ -54,11 +56,25 @@ app.get('/fruits', async (req, res) => {
     })
 })
 
+// GET show route /fruits/:fruitId
 app.get('/fruits/:fruitId', async (req, res) => {
     let foundFruit = await Fruit.findById(req.params.fruitId)
+    console.log(foundFruit)
     res.render('show.ejs', {
         foundFruit: foundFruit
     })
+})  
+
+app.delete('/fruits/:fruitId', async (req, res) =>{
+    await Fruit.findByIdAndDelete(req.params.fruitId)
+    res.redirect('/fruits')
+})
+
+// GET the edit form /fruits/:fruitId/edit
+app.get('/fruits/:fruitId/edit', async (req, res) => {
+    let foundFruit = await Fruit.findById(req.params.fruitId)
+    console.log(foundFruit)
+    res.render('edit.ejs')
 })
 
 
