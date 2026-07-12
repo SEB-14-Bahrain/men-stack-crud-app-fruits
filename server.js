@@ -74,7 +74,9 @@ app.delete('/fruits/:fruitId', async (req, res) =>{
 app.get('/fruits/:fruitId/edit', async (req, res) => {
     let foundFruit = await Fruit.findById(req.params.fruitId)
     console.log(foundFruit)
-    res.render('edit.ejs')
+    res.render('edit.ejs', {
+        foundFruit: foundFruit
+    })
 })
 
 

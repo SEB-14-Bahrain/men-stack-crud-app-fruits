@@ -1,15 +1,19 @@
 <%- include('./partials/nav') %>
 
-    <h1>Edit a Fruit</h1>
+    <h1>Edit <%= foundFruit.name %></h1>
 
     <form action="" method="POST">
         Name:
-        <input type="text" name="name" />
+        <input type="text" name="name" value="<%= foundFruit.name %>" />
 
         <br />
         <div class="checkbox-div">
             Ready to Eat?
-            <input type="checkbox" name="isReadyToEat"/>
+            <% if (foundFruit.isReadyToEat === true) { %>
+                <input type="checkbox" name="isReadyToEat" checked />
+            <% } else { %>
+                <input type="checkbox" name="isReadyToEat" />
+            <% } %>
         </div>
 
         <button type="submit">Update Fruit</button>
