@@ -2,13 +2,14 @@
 
 <h1><%= foundFruit.name %></h1>
 <% if (foundFruit.isReadyToEat) { %>
-    <p> This fruit is ready to eat! </p>
+    <span class="badge bg-success"> This fruit is ready to eat! </span>
 <% } else { %>
     <p>This fruit is NOT ready to eat.</p>
 <%   }  %>
 
 <form action="/fruits/<%= foundFruit._id %>?_method=DELETE" method="POST">
-    <button type="submit">Delete</button>
+    <!-- bootstrap button - be sure to comment out font-family on forms in css -->
+    <button class="btn btn-danger" type="submit">Delete</button>
 </form>
 
 <a href="/fruits/<%= foundFruit._id %>/edit">Edit the <%= foundFruit.name %></a>

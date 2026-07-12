@@ -2,14 +2,28 @@
 
 <h1>All Fruits</h1>
 
-<ul>
-    <% allFruits.forEach((item) => { %>
-        <a href="/fruits/<%= item._id %>">
-            <li><%= item.name %></li>
+<!-- create a bootstrap flexbox container -->
+ <!-- https://getbootstrap.com/docs/5.0/utilities/flex/ -->
+  <div class="d-flex justify-content-evenly flex-wrap">
 
-        </a>
-    <% }) %>
-</ul>
+      <% allFruits.forEach((item) => { %>
+        
+        <!-- grab a bootstrap card -->
+        <div class="card mb-2" style="width: 18rem;">
+            <!-- https://getbootstrap.com/docs/5.0/utilities/spacing/#notation -->
+            <!-- check out utilities and notation to add margin to bottom of cards -->
+            <div class="card-body">
+                <h5 class="card-title"><%= item.name %></h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="/fruits/<%= item._id %>" class="card-link">Details</a>
+                
+            </div>
+        </div>
+        
+        <% }) %>
+    </div>
+
 
 </body>
 </html>
