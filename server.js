@@ -41,7 +41,24 @@ app.post('/fruits', async (req, res) => {
 
     let createdFruit = await Fruit.create(fruitData)
 
-    res.redirect('/')
+    res.redirect('/fruits')
+})
+
+
+//GET all fruits /fruits - index route
+app.get('/fruits', async (req, res) => {
+    let allFruits = await Fruit.find()
+    console.log(allFruits)
+    res.render('index.ejs', {
+        allFruits: allFruits
+    })
+})
+
+app.get('/fruits/:fruitId', async (req, res) => {
+    let foundFruit = await Fruit.findById(req.params.fruitId)
+    res.render('show.ejs', {
+        foundFruit: foundFruit
+    })
 })
 
 
