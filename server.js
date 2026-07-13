@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const path = require('path')
 const methodOverride = require('method-override')
 
+const fruitsCtrl = require('./controllers/fruits.controllers.js')
+
 const app = express()
 
 // connect us to MongoDB using connection string in .env
@@ -48,13 +50,7 @@ app.post('/fruits', async (req, res) => {
 
 
 //GET all fruits /fruits - index route
-app.get('/fruits', async (req, res) => {
-    let allFruits = await Fruit.find()
-    console.log(allFruits)
-    res.render('index.ejs', {
-        allFruits: allFruits
-    })
-})
+app.get('/fruits', fruitsCtrl.index)
 
 // GET show route /fruits/:fruitId
 app.get('/fruits/:fruitId', async (req, res) => {
